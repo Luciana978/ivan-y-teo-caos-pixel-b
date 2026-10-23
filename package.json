@@ -1,0 +1,36 @@
+{
+  "name": "react-vite-tailwind",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:check": "esbuild scripts/check.ts --bundle --format=esm --platform=node --outfile=node_modules/.cache/ivt/check.mjs --log-level=error && node node_modules/.cache/ivt/check.mjs",
+    "test:sim": "esbuild scripts/sim.ts --bundle --format=esm --platform=node --outfile=node_modules/.cache/ivt/sim.mjs --log-level=error && node node_modules/.cache/ivt/sim.mjs",
+    "test:route": "esbuild scripts/route.ts --bundle --format=esm --platform=node --outfile=node_modules/.cache/ivt/route.mjs --log-level=error && node node_modules/.cache/ivt/route.mjs",
+    "test:replay": "esbuild scripts/replay.ts --bundle --format=esm --platform=node --outfile=node_modules/.cache/ivt/replay.mjs --log-level=error && node node_modules/.cache/ivt/replay.mjs",
+    "test:storage": "esbuild scripts/storage.ts --bundle --format=esm --platform=node --outfile=node_modules/.cache/ivt/storage.mjs --log-level=error && node node_modules/.cache/ivt/storage.mjs",
+    "trace": "esbuild scripts/trace.ts --bundle --format=esm --platform=node --outfile=node_modules/.cache/ivt/trace.mjs --log-level=error && node node_modules/.cache/ivt/trace.mjs",
+    "test:ui": "esbuild scripts/ui-smoke.tsx --bundle --format=esm --platform=node --jsx=automatic --alias:@=./src --external:react --external:react-dom --external:clsx --external:tailwind-merge --outfile=node_modules/.cache/ivt/ui.mjs --log-level=error && node node_modules/.cache/ivt/ui.mjs",
+    "test": "npm run -s test:check && npm run -s test:sim && npm run -s test:storage && npm run -s test:replay && npm run -s test:ui"
+  },
+  "dependencies": {
+    "clsx": "2.1.1",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "tailwind-merge": "3.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.17",
+    "@types/node": "22.19.17",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.1.1",
+    "tailwindcss": "4.1.17",
+    "typescript": "5.9.3",
+    "vite": "7.3.2",
+    "vite-plugin-singlefile": "2.3.0"
+  }
+}

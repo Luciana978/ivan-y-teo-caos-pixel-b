@@ -1,0 +1,504 @@
+@import "tailwindcss";
+
+/* ============================================================
+   RAGE QUIT CLUB — identidad visual retro
+   Paleta: fondo #11111B · superficie #222238 · violeta #8B5CF6
+           cian #45E0E6 · peligro #FF8A3D · muerte #FF4D6D
+           blanco cálido #F4F0E8
+   ============================================================ */
+
+:root {
+  --rtc-bg: #11111b;
+  --rtc-surface: #222238;
+  --rtc-surface2: #2f2f4a;
+  --rtc-violet: #8b5cf6;
+  --rtc-cyan: #45e0e6;
+  --rtc-danger: #ff8a3d;
+  --rtc-death: #ff4d6d;
+  --rtc-warm: #f4f0e8;
+  --rtc-gold: #ffd166;
+  --rtc-font: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", monospace;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: var(--rtc-bg);
+  color: var(--rtc-warm);
+  font-family: var(--rtc-font);
+  overscroll-behavior: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* ------------------------------ contenedor ------------------------------ */
+
+.rtc-root {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.16), transparent 55%),
+    radial-gradient(circle at 50% 100%, rgba(69, 224, 230, 0.08), transparent 60%),
+    var(--rtc-bg);
+  user-select: none;
+}
+
+.rtc-cabinet {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1080px;
+  height: 100%;
+  max-height: 860px;
+  gap: 6px;
+}
+
+/* ------------------------------- barra sup ------------------------------ */
+
+.rtc-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  background: linear-gradient(180deg, rgba(34, 34, 56, 0.95), rgba(17, 17, 27, 0.9));
+  border: 2px solid rgba(139, 92, 246, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), 0 3px 0 rgba(0, 0, 0, 0.45);
+  flex: 0 0 auto;
+}
+
+.rtc-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--rtc-cyan);
+  text-shadow: 0 0 10px rgba(69, 224, 230, 0.5);
+  white-space: nowrap;
+}
+
+.rtc-hudval {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  color: var(--rtc-warm);
+}
+
+.rtc-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+}
+.rtc-dot-cyan {
+  background: var(--rtc-cyan);
+}
+.rtc-dot-red {
+  background: var(--rtc-death);
+}
+.rtc-dot-gold {
+  background: var(--rtc-gold);
+}
+.rtc-dot-violet {
+  background: var(--rtc-violet);
+}
+
+.rtc-iconbtn {
+  font-family: var(--rtc-font);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  padding: 5px 7px;
+  color: var(--rtc-warm);
+  background: var(--rtc-surface);
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+.rtc-iconbtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.rtc-iconbtn-off {
+  color: var(--rtc-death);
+  border-color: rgba(255, 77, 109, 0.5);
+}
+.rtc-iconbtn:not(:disabled):active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* -------------------------------- escenario ----------------------------- */
+
+.rtc-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(139, 92, 246, 0.45);
+  background: #0b0b12;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.7), 0 0 40px rgba(139, 92, 246, 0.12) inset;
+  overflow: hidden;
+}
+
+.rtc-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.rtc-overlay .rtc-panel,
+.rtc-overlay button,
+.rtc-overlay textarea {
+  pointer-events: auto;
+}
+
+.rtc-pixel {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+}
+
+.rtc-canvas {
+  background: var(--rtc-bg);
+  outline: none;
+}
+
+.rtc-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.16) 0px,
+    rgba(0, 0, 0, 0.16) 1px,
+    rgba(0, 0, 0, 0) 1px,
+    rgba(0, 0, 0, 0) 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+}
+
+/* --------------------------- mensaje de muerte -------------------------- */
+
+.rtc-death {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  animation: rtc-pop 0.16s steps(2) both;
+}
+
+.rtc-death-title {
+  font-size: clamp(16px, 5vw, 30px);
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  color: var(--rtc-death);
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+}
+
+.rtc-death-msg {
+  max-width: 90%;
+  text-align: center;
+  font-size: clamp(9px, 2.4vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--rtc-warm);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.85);
+}
+
+.rtc-death-hint {
+  font-size: 8px;
+  letter-spacing: 0.24em;
+  color: rgba(244, 240, 232, 0.45);
+}
+
+.rtc-warn {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: var(--rtc-danger);
+  background: rgba(17, 17, 27, 0.8);
+  padding: 3px 6px;
+  border: 1px solid rgba(255, 138, 61, 0.5);
+}
+
+@keyframes rtc-pop {
+  from {
+    transform: scale(0.86);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* --------------------------------- paneles ------------------------------ */
+
+.rtc-panel {
+  background: linear-gradient(180deg, rgba(34, 34, 56, 0.97), rgba(17, 17, 27, 0.97));
+  border: 2px solid rgba(139, 92, 246, 0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 6px 0 rgba(0, 0, 0, 0.45),
+    0 0 60px rgba(139, 92, 246, 0.15);
+  position: relative;
+}
+.rtc-panel::before,
+.rtc-panel::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--rtc-cyan);
+}
+.rtc-panel::before {
+  left: -2px;
+  top: -2px;
+}
+.rtc-panel::after {
+  right: -2px;
+  bottom: -2px;
+}
+
+.rtc-head {
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  color: var(--rtc-warm);
+  text-shadow: 2px 2px 0 rgba(139, 92, 246, 0.55);
+}
+
+/* --------------------------------- botones ------------------------------ */
+
+.rtc-btn {
+  font-family: var(--rtc-font);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  border: 2px solid transparent;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);
+  transition: filter 0.08s linear;
+}
+.rtc-btn:not(:disabled):hover {
+  filter: brightness(1.12);
+}
+.rtc-btn:not(:disabled):active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+.rtc-btn:focus-visible,
+.rtc-iconbtn:focus-visible,
+.rtc-touch:focus-visible,
+.rtc-lv:focus-visible {
+  outline: 2px solid var(--rtc-cyan);
+  outline-offset: 2px;
+}
+.rtc-btn-primary {
+  color: #11111b;
+  background: var(--rtc-violet);
+  border-color: #b794ff;
+}
+.rtc-btn-cyan {
+  color: #11111b;
+  background: var(--rtc-cyan);
+  border-color: #9ff5f8;
+}
+.rtc-btn-ghost {
+  color: var(--rtc-warm);
+  background: rgba(47, 47, 74, 0.7);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+.rtc-btn-danger {
+  color: #11111b;
+  background: var(--rtc-death);
+  border-color: #ff8fa5;
+}
+
+/* ---------------------------------- logo -------------------------------- */
+
+.rtc-logo-line1,
+.rtc-logo-line2 {
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 0.95;
+}
+.rtc-logo-line1 {
+  color: var(--rtc-warm);
+  text-shadow:
+    0 3px 0 var(--rtc-violet),
+    0 6px 0 rgba(0, 0, 0, 0.6);
+}
+.rtc-logo-line2 {
+  color: var(--rtc-cyan);
+  text-shadow:
+    0 3px 0 rgba(139, 92, 246, 0.9),
+    0 6px 0 rgba(0, 0, 0, 0.6);
+}
+
+.rtc-kbd {
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 4px;
+  color: #11111b;
+  background: var(--rtc-warm);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ----------------------------- grilla niveles --------------------------- */
+
+.rtc-lv {
+  font-family: var(--rtc-font);
+  background: rgba(47, 47, 74, 0.55);
+  border: 2px solid rgba(139, 92, 246, 0.35);
+  cursor: pointer;
+}
+.rtc-lv:not(:disabled):hover {
+  border-color: var(--rtc-cyan);
+  background: rgba(69, 224, 230, 0.12);
+}
+.rtc-lv-cleared {
+  border-color: rgba(69, 224, 230, 0.6);
+}
+
+.rtc-table {
+  width: 100%;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  font-size: 10px;
+}
+.rtc-tr {
+  display: grid;
+  grid-template-columns: 20px 1fr 54px 62px 30px;
+  gap: 4px;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: center;
+}
+.rtc-tr:last-child {
+  border-bottom: none;
+}
+.rtc-tr-head {
+  background: rgba(139, 92, 246, 0.18);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 240, 232, 0.6);
+}
+
+.rtc-share-text {
+  width: 100%;
+  font-family: var(--rtc-font);
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--rtc-warm);
+  background: rgba(17, 17, 27, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  padding: 6px;
+  resize: none;
+}
+
+/* ------------------------------ controles táctiles ---------------------- */
+
+.rtc-pad {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px;
+  flex: 0 0 auto;
+  touch-action: none;
+}
+.rtc-pad-hidden {
+  display: none;
+}
+.rtc-pad-group {
+  display: flex;
+  gap: 8px;
+}
+
+.rtc-touch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 62px;
+  height: 54px;
+  padding: 0 12px;
+  color: var(--rtc-warm);
+  background: rgba(34, 34, 56, 0.95);
+  border: 2px solid rgba(139, 92, 246, 0.55);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  touch-action: none;
+}
+.rtc-touch-big {
+  min-width: 116px;
+  height: 62px;
+  background: rgba(69, 224, 230, 0.18);
+  border-color: rgba(69, 224, 230, 0.7);
+  color: var(--rtc-cyan);
+}
+.rtc-touch-small {
+  min-width: 62px;
+  height: 62px;
+}
+.rtc-touch-active {
+  transform: translateY(4px);
+  box-shadow: none;
+  background: rgba(139, 92, 246, 0.45);
+}
+
+.rtc-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: rgba(244, 240, 232, 0.45);
+  padding: 0 2px 2px;
+  flex: 0 0 auto;
+}
+.rtc-foot b {
+  color: var(--rtc-cyan);
+  font-weight: 800;
+}
+
+/* ------------------------- movimiento reducido ------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .rtc-death {
+    animation: none;
+  }
+  .rtc-btn,
+  .rtc-touch,
+  .rtc-btn:not(:disabled):hover {
+    transition: none;
+    filter: none;
+  }
+}
